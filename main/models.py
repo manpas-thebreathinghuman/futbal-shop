@@ -4,7 +4,7 @@ from django.db import models
 class Product(models.Model):
     CATEGORY_CHOICES = [("a","A")]
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=101)
     price = models.IntegerField()
     description = models.TextField()
     thumbnail = models.URLField(blank=True, null=True)
