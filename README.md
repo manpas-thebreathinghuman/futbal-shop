@@ -16,3 +16,17 @@ btw main saya tulis sendiri tampa nyontek tutorial karena saya pernah membuat ko
 Lalu, saat kta migrate, django melihat file file yang di migration lalu di aplikasikan.
 5. karena mengggunakan python, sehingga mudah
 6. tidak ada yang major, gpp gpp aja sejauh ini
+
+Tugas 3
+
+1. Supaya data-data relevan yg ada di server bisa dilihat klien
+2. Karena json lebih mudah dibaca dari xml
+3. Guna is_valid() adalah untuk mengecek apakah form-nya valid atau tidak. Ini diperlukan supaya tidak ada input salah yang diproses
+4. Guna csrf_token secara otomatis di generate django untuk security dari serangan csrf (Cross-Site Request Forgey). Jika tidak ada csrf_token, penyerang bisa mengubah data (seperti mengubah password atau melakukan pembelian) atas nama user.
+5. Seperti sebelumnya, saya pertama menyontek tutorial. Tapi ternyata banyak hal yang perluh diubah kali ini (lebih banyak dari sebelumnya). Terutama di bagian yang saya tidak tambahkan/saya ubah di tugas 2. Contoh yang paling obvious adalah nama model yang sebelumnya News, saya ubah jadi Product. Juga ada news jadi item. Dan favorit saya, news_item jadi item_thing.
+Juga betulin easter egg, sama ternyata perluh id (saya tidak sertakan di tugas 2)
+Juga yang ditunjukkan diubah dari hal relevan di news (seperti view count dll) saya ubah jadi hal yang relevan di shop (seperti price dll)
+![alt text](images_screenshot/json.png)
+![alt text](images_screenshot/xml.png)
+![alt text](images_screenshot/jsonbyid.png)
+![alt text](images_screenshot/xmlbyid.png)

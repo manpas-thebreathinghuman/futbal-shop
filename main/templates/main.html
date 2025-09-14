@@ -1,10 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>Futbal shop</h1>
 <p>Wher exselence meets a butifull gam</p>
 
-<h3>{{name}}</h3>
-<p>[nanti gambar di sini]</p>
-<h4>{{price}}</h4>
-<p>{{description}}</p>
+<a href="{% url 'main:new_item' %}">
+  <button>+ Add Item</button>
+</a>
+
+<hr>
+
+{% if not item_list %}
+<p>Belum ada data item yang tersedia.</p>
+{% else %}
+
+{% for item in item_list %}
+<div>
+  <h2><a href="{% url 'main:show_item' item.id %}">{{ item.name }}</a></h2>
+  
+  <p><b>{{ item.get_category_display }}</b>{% if item.is_featured %} | 
+    <b>Feetured</b>{% endif %} | <i>{{  item.price }}</i></p>
+
+  {% if item.thumbnail %}
+  <img src="{{ item.thumbnail }}" alt="thumbnail" width="150" height="100">
+  <br />
+  {% endif %}
+
+  <p>{{item.description|truncatewords:25}}...</p>
+
+  <p><a href="{% url 'main:show_item' item.id %}"><button>Read More</button></a></p>
+</div>
+
+<hr>
+{% endfor %}
+{% endif %}
+
+<h5>By:</h5>
+<h5>NPM: </h5>
+<p>{{ npm }}</p>
+
+<h5>Name:</h5>
+<p>{{ name }}</p>
+
+<h5>Class:</h5>
+<p>{{ class }}</p>
+
 <br>
 <br>
 <br>
@@ -41,3 +80,4 @@
     <img src="https://preview.redd.it/nty78xetq2fe1.jpeg?width=360&format=pjpg&auto=webp&s=79d4cd6ebb408540f504a7f42d143fcad69bc108" alt="img of mambo">
     <!--linknya yg mambo ei ei ei ei mun-->
 </a>
+{% endblock content%}

@@ -4,6 +4,7 @@ from django.db import models
 class Product(models.Model):
     CATEGORY_CHOICES = [("a","A")]
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=101)
     price = models.IntegerField()
     description = models.TextField()
