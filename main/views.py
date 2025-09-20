@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import ShopForm
-from main.models import Product
+from main.models import Product, Employee
 from django.http import HttpResponse
 from django.core import serializers
 
@@ -15,6 +15,19 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
+
+#bisa kyk gini juga:
+
+#def new_employee(request):
+
+#    employee = Employee.objects.create(name = "Danniel", age = 20, persona = "baik banget buat challenge")
+#    context = {
+#        'name': employee.name,
+#        'age': employee.age,
+#        'persona': employee.persona
+
+#    }
+#    return render(request, "employeee.html", context)
 
 def new_item(request):
     form = ShopForm(request.POST or None)

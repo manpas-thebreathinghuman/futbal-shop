@@ -14,4 +14,15 @@ class Product(models.Model):
     
     def __str__(self):
         return self.title
+
+#class Employee(models.Model):
+
+#    name = models.CharField(max_length=255)
+#    age = models.IntegerField()
+#    persona = models.TextField()
+#employee
+# tiga field: name, age, persona
+# nama: max 255 char
+#age: integer
+#persona: string
     
