@@ -4,13 +4,26 @@
 <p>Wher exselence meets a butifull gam</p>
 
 <a href="{% url 'main:new_item' %}">
-  <button>+ Add Item</button>
+  <button>+ Ad Item</button>
 </a>
+
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+
+<h5>Sesi terakir login: {{ last_login }}</h5>
+
+<a href="?filter=all">
+    <button type="button">Al items</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My items</button>
+</a> 
 
 <hr>
 
 {% if not item_list %}
-<p>Belum ada data item yang tersedia.</p>
+<p>Blum ad data itm yg tersedia.</p>
 {% else %}
 
 {% for item in item_list %}
@@ -27,14 +40,14 @@
 
   <p>{{item.description|truncatewords:25}}...</p>
 
-  <p><a href="{% url 'main:show_item' item.id %}"><button>Read More</button></a></p>
+  <p><a href="{% url 'main:show_item' item.id %}"><button>Reead Mor</button></a></p>
 </div>
 
 <hr>
 {% endfor %}
 {% endif %}
 
-<h5>By:</h5>
+<h5>login info:</h5>
 <h5>NPM: </h5>
 <p>{{ npm }}</p>
 

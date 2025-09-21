@@ -1,19 +1,25 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 
 class Product(models.Model):
-    CATEGORY_CHOICES = [("a","A")]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    CATEGORY_CHOICES = [("futwear","Futwear"),
+                        ("cloathing item","Cloathing item"),
+                        ("merchant dice","Merchant dice"),
+                        ("spourts item", "Spourts item"),
+                        ("others","Others")]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=101)
     price = models.IntegerField()
     description = models.TextField()
     thumbnail = models.URLField(blank=True, null=True)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='update')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='others')
     is_featured = models.BooleanField(default=False)
-    
+
     def __str__(self):
-        return self.title
+        return self.name
 
 #class Employee(models.Model):
 

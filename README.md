@@ -30,3 +30,21 @@ Juga yang ditunjukkan diubah dari hal relevan di news (seperti view count dll) s
 ![alt text](images_screenshot/xml.png)
 ![alt text](images_screenshot/jsonbyid.png)
 ![alt text](images_screenshot/xmlbyid.png)
+
+Tugas 4
+
+1. AuthehtificationForm adalah form yang berguna untuk meloginkan user
+keuntungannya termasuk keamanan django, dan mudah diimplementasikan
+kekurangannya adalah kesulitan untuk mengustonya
+2. Autentifikasi adalah pengecekkan identitas, dan otorisasi adalah penentuan akses.
+Django mengautentifikasi dengan session dan cookies. django memiliki user model yang berisi 'model identitas' user, menggunakan backend untuk mengautentifiksaisi, dan menggunakan middleware untuk mengatur data
+django mengotorisasi dengan kombinasi perizinan, backend autentifikasi, dan dekorator yang mengatur siapa siapa yang bisa melihat dan mengubah data. Termasuk perizinan level 'model' yang dipunyai user dan decorator seperti @login_required
+3. Cookie mempunyai expiration yang bisa session based atau permanen, otentikasi yang aman, bisa di share sesama subdomain, dan lebih aman dari serangan
+Session storage mempunyai expiration ketika tab atau laman ditutup, tidak perluh dikirim lagi ke server, tapi rentan dalam menyimpan data sensitif karena lebih mudah di hack
+4. Cookie, meski lebih aman dari session storage, masih mempunyai beberapa kerentanan, seperti pembajakan sesi, serangan XSS, dan serangan CSRF
+5. Lowkey forgetting futbal shop isn't supposed to have proper spelling so I changed some words to have the wrong spelling. That's the first thing I did before even opening the tutorial guide
+Lalu setelah itu saya lanjut membuat sesuai yang ada di tutorial. Somehow, lebih banyak yang sama dengan tutorial dibanding tugas 3. Meski lebih banyak yang ditambahkan di tugas 4 juga.
+Jadi setelah pembuatan, ada sesi bugfixing yang saya lakukan yang ternyata terjadi karena saat pengubahan nama dari terminologi news jadi shop, saya salah mengetik banyak.
+Hal lain yang diubah seperti init return self.name bukan self.title
+Juga di akhir ada pembuatan template. Aslinya saya bingung mau bagaimana cara untuk mengimplementasikannya, dengan clue hebat yang saya dapat dari demo, bahwa bisa langsung saja buat user tanpa register.
+Jadi saya menaruhnya di show_main(), tapi, error kalau sudah dibuat si Minoru dan Budinya, jadi dibuat if not yg itulah sudah exist atau belum

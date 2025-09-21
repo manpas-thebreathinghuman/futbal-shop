@@ -1,17 +1,49 @@
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import ShopForm
-from main.models import Product, Employee
-from django.http import HttpResponse
+from main.models import Product#, Employee
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.contrib.auth.models import User
 
+@login_required(login_url='/login')
 def show_main(request):
-    items_list = Product.objects.all()
+    #pembuatan yg di template
+    if not User.objects.filter(username="Budi_bedagang").exists():
+        budi = User.objects.create_user(username="Budi_bedagang", password="bedagangbukanbegadang")
+        print("yay budi")
+
+        Product.objects.create(user=budi, name='Football', price=100000, description="Buat diliatin jadi nonton bola. HD quality", thumbnail="https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvam9iNjg0LTI0NS12LmpwZw.jpg", category="spourts item", is_featured=False)
+        Product.objects.create(user=budi, name="Special custom banner", price=5000000, description="Custom banner so special it will make your sunday marvelous",thumbnail="https://static.vecteezy.com/system/resources/thumbnails/000/701/690/small_2x/abstract-polygonal-banner-background.jpg", category="others", is_featured=False)
+        Product.objects.create(user=budi, name="T-shirt putih", price=80000, description="Baju putih buat main bola. Tapi hati-hati jangan kotor soalnya bajunya putih", thumbnail="https://png.pngtree.com/png-clipart/20230206/ourmid/pngtree-realistic-white-t-shirt-vector-for-mockup-png-image_6584050.png", category="cloathing item", is_featured=False)
+
+    if not User.objects.filter(username="Minoru").exists():
+        minoru = User.objects.create_user(username="Minoru", password="GutsTraining")
+        print("yay minoru")
+
+        Product.objects.create(user=minoru, name='Sprinting Shoe', price=1000, description="The hottest new shoe from a popular sprinting brand from another universe",thumbnail="https://gametora.com/images/umamusume/items/item_icon_00001.png", category="futwear", is_featured=False)
+        Product.objects.create(user=minoru, name="Dirt-resistant shoe", price=1000, description="Brand-name shoe that cleans the sloppiest of dirst. From another universe",thumbnail="https://gametora.com/images/umamusume/items/item_icon_00013.png", category="futwear", is_featured=False)
+        Product.objects.create(user=minoru, name="Alarm clock", price=2000, description="magic alarm clock from another universe that resets your bad day",thumbnail="https://img.game8.co/4225281/7aec4998c56fe28a363b409f6a11ab25.png/show", category="merchant dice", is_featured=False)
+
+    filter_type = request.GET.get("filter", "all") #default 'all'
+
+    if filter_type == "all":
+        item_list = Product.objects.all()
+        print(item_list)
+    else:
+        item_list = Product.objects.filter(user=request.user)
 
     context = {
         'npm': '2406411830',
-        'name': 'Muhammad Fadhlurrohman Pasya',
+        'name': request.user.username,
         'class': 'PBP E',
-        'item_list': items_list
+        'item_list': item_list,
+        'last_login': request.COOKIES.get('last_login', 'Never')
     }
 
     return render(request, "main.html", context)
@@ -33,12 +65,15 @@ def new_item(request):
     form = ShopForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        form.save()
+        item_entry = form.save(commit = False)
+        item_entry.user = request.user
+        item_entry.save()
         return redirect('main:show_main')
     
     context = {'form': form}
     return render(request, "new_item.html", context)
 
+@login_required(login_url='/login')
 def show_item(request, id):
     item = get_object_or_404(Product, pk=id)
     
@@ -74,4 +109,36 @@ def show_json_by_id(request, item_id):
     except Product.DoesNotExist:
         return HttpResponse(status=404)
 
-# Create your views here.
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Yur ackount has been successfuly created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+
+def login_user(request):
+   if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main"))
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+
+   else:
+      form = AuthenticationForm(request)
+   context = {'form': form}
+   return render(request, 'login.html', context)
+
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
