@@ -16,15 +16,13 @@ def show_main(request):
     #pembuatan yg di template
     if not User.objects.filter(username="Budi_bedagang").exists():
         budi = User.objects.create_user(username="Budi_bedagang", password="bedagangbukanbegadang")
-        print("yay budi")
 
         Product.objects.create(user=budi, name='Football', price=100000, description="Buat diliatin jadi nonton bola. HD quality", thumbnail="https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvam9iNjg0LTI0NS12LmpwZw.jpg", category="spourts item", is_featured=False)
-        Product.objects.create(user=budi, name="Special custom banner", price=5000000, description="Custom banner so special it will make your sunday marvelous",thumbnail="https://static.vecteezy.com/system/resources/thumbnails/000/701/690/small_2x/abstract-polygonal-banner-background.jpg", category="others", is_featured=False)
+        Product.objects.create(user=budi, name="Special custom banner", price=500000, description="Custom banner so special it will make your sunday marvelous",thumbnail="https://static.vecteezy.com/system/resources/thumbnails/000/701/690/small_2x/abstract-polygonal-banner-background.jpg", category="others", is_featured=False)
         Product.objects.create(user=budi, name="T-shirt putih", price=80000, description="Baju putih buat main bola. Tapi hati-hati jangan kotor soalnya bajunya putih", thumbnail="https://png.pngtree.com/png-clipart/20230206/ourmid/pngtree-realistic-white-t-shirt-vector-for-mockup-png-image_6584050.png", category="cloathing item", is_featured=False)
 
     if not User.objects.filter(username="Minoru").exists():
         minoru = User.objects.create_user(username="Minoru", password="GutsTraining")
-        print("yay minoru")
 
         Product.objects.create(user=minoru, name='Sprinting Shoe', price=1000, description="The hottest new shoe from a popular sprinting brand from another universe",thumbnail="https://gametora.com/images/umamusume/items/item_icon_00001.png", category="futwear", is_featured=False)
         Product.objects.create(user=minoru, name="Dirt-resistant shoe", price=1000, description="Brand-name shoe that cleans the sloppiest of dirst. From another universe",thumbnail="https://gametora.com/images/umamusume/items/item_icon_00013.png", category="futwear", is_featured=False)
@@ -43,6 +41,7 @@ def show_main(request):
         'name': request.user.username,
         'class': 'PBP E',
         'item_list': item_list,
+        'categories': Product.CATEGORY_CHOICES,
         'last_login': request.COOKIES.get('last_login', 'Never')
     }
 
@@ -72,6 +71,24 @@ def new_item(request):
     
     context = {'form': form}
     return render(request, "new_item.html", context)
+
+def edit_item(request, id):
+    item = get_object_or_404(Product, pk=id)
+    form = ShopForm(request.POST or None, instance=item)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_item.html", context)
+
+def delete_item(request, id):
+    news = get_object_or_404(Product, pk=id)
+    news.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 @login_required(login_url='/login')
 def show_item(request, id):

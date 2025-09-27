@@ -1,62 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Futbal Shop</title>
+{% endblock meta %}
+
 {% block content %}
-<h1>Futbal shop</h1>
-<p>Wher exselence meets a butifull gam</p>
+{% include 'navbar.html' with categories=categories%}
 
-<a href="{% url 'main:new_item' %}">
-  <button>+ Ad Item</button>
-</a>
+<div class="bg-gray-50 w-full pt-full min-h-screen">
+  <div class="max-w-[90rem] mx-auto px-4 sm:px-2 lg:px-2 py-2">
 
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
+    <!-- Header Section -->
+    <div class="mb-5">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Wher exselence meets a butifull gam</h1>
+    </div>
 
-<h5>Sesi terakir login: {{ last_login }}</h5>
+    <!-- Filter Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 bg-white rounded-lg border border-gray-200 p-4">
+      <div class="flex space-x-3 mb-4 sm:mb-0">
+        <a href="?" class="{% if request.GET.filter == 'all' or not request.GET.filter  %} bg-orange-600 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-md font-medium transition-colors hover:bg-orange-600 hover:text-white">
+          Al produck
+        </a>
+        <a href="?filter=my" class="{% if request.GET.filter == 'my' %} bg-orange-600 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-md font-medium transition-colors hover:bg-orange-600 hover:text-white">
+          My produck
+        </a>
+      </div>
+      {% if user.is_authenticated %}
+        <div class="text-sm text-gray-500">
+          Last login: {{ last_login }}
+        </div>
+      {% endif %}
+    </div>
 
-<a href="?filter=all">
-    <button type="button">Al items</button>
-</a>
-<a href="?filter=my">
-    <button type="button">My items</button>
-</a> 
-
-<hr>
-
-{% if not item_list %}
-<p>Blum ad data itm yg tersedia.</p>
-{% else %}
-
-{% for item in item_list %}
-<div>
-  <h2><a href="{% url 'main:show_item' item.id %}">{{ item.name }}</a></h2>
-  
-  <p><b>{{ item.get_category_display }}</b>{% if item.is_featured %} | 
-    <b>Feetured</b>{% endif %} | <i>{{  item.price }}</i></p>
-
-  {% if item.thumbnail %}
-  <img src="{{ item.thumbnail }}" alt="thumbnail" width="150" height="100">
-  <br />
-  {% endif %}
-
-  <p>{{item.description|truncatewords:25}}...</p>
-
-  <p><a href="{% url 'main:show_item' item.id %}"><button>Reead Mor</button></a></p>
+    <!-- Product Grid -->
+    {% if not item_list %}
+      <div class="bg-white rounded-lg border border-gray-200 p-5 text-center">
+        <div class="w-32 h-32 mx-auto mb-4">
+          <img src="{% static 'image/no-news.png' %}" alt="No item available" class="w-full h-full object-contain">
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">No itm fawnd</h3>
+        <p class="text-gray-500 mb-6">Bee the firs to sel a procuk to the comunity.</p>
+        <a href="{% url 'main:new_item' %}" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+          New itm
+        </a>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {% for item in item_list %}
+          {% include 'card_item.html' with item=item %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
 </div>
 
-<hr>
-{% endfor %}
-{% endif %}
-
+<div class="bg-white rounded-md border border-gray-300 mx-2 px-10">
 <h5>login info:</h5>
-<h5>NPM: </h5>
-<p>{{ npm }}</p>
+  <div class="text-orange-600">
+    <h5>NPM: </h5>
+  </div>
+<p>    {{ npm }}</p>
 
-<h5>Name:</h5>
-<p>{{ name }}</p>
+  <div class="text-orange-600">
+    <h5>Name:</h5>
+  </div>
 
-<h5>Class:</h5>
-<p>{{ class }}</p>
+<p>    {{ name }}</p>
 
+  <div class="text-orange-600">
+    <h5>Class:</h5>
+  </div>
+
+<p>    {{ class }}</p>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
