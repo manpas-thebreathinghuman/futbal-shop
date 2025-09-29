@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
-from main.forms import ShopForm
-from main.models import Product#, Employee
+from main.forms import ShopForm#, CarForm
+from main.models import Product#, Car, Employee
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -71,6 +71,18 @@ def new_item(request):
     
     context = {'form': form}
     return render(request, "new_item.html", context)
+
+#def new_car(request):
+    #form = CarForm(request.POST or None)
+
+    #if form.is_valid() and request.method == "POST":
+        #item_entry = form.save(commit = False)
+        #item_entry.user = request.user
+        #item_entry.save()
+        #return redirect('main:show_main')
+    
+    #context = {'form': form}
+    #return render(request, "new_car.html", context)
 
 def edit_item(request, id):
     item = get_object_or_404(Product, pk=id)

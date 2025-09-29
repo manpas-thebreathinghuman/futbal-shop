@@ -32,3 +32,12 @@ class Product(models.Model):
 #age: integer
 #persona: string
     
+#class Car(models.Model):
+    #name = models.CharField(max_length=255)
+    #brand = models.CharField(max_length=255)
+    #stock = models.IntegerField()
+
+    #def __str__(self):
+        #return self.name
+    #bikin model namanya car/mobil
+    # atribute Name (255 char) Brand (255 char) Stock (int)
