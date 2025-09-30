@@ -48,3 +48,24 @@ Jadi setelah pembuatan, ada sesi bugfixing yang saya lakukan yang ternyata terja
 Hal lain yang diubah seperti init return self.name bukan self.title
 Juga di akhir ada pembuatan template. Aslinya saya bingung mau bagaimana cara untuk mengimplementasikannya, dengan clue hebat yang saya dapat dari demo, bahwa bisa langsung saja buat user tanpa register.
 Jadi saya menaruhnya di show_main(), tapi, error kalau sudah dibuat si Minoru dan Budinya, jadi dibuat if not yg itulah sudah exist atau belum
+
+Tugas 5
+1. Specifity Selector urutannya:
+   Inline Styles>
+   ID Selectors>
+   Classes Selector>
+   Element Selector
+2. Responsive design penting karena tidak semua perangkat memiliki Ukuran layar yang sama. Kalau misalnya website tidak memiliki responsive design, maka pengguna yang tidak mempunyai layar yang pas tidak akan merasakan pengalaman menggunakan web dengan nyaman. Contoh unresponsive design adalah website-website yang tidak mobile friendly
+3. Margin adalah bagian diluar elemen, border merupakan bagian di tepi elemen, dan padding adalah jarak dari border ke isi/konten dari elemen
+   Di tailwind:
+   Margin di atur dengan m (m-<number>, mx-<number>, mt-<number>, dll)
+   Border dengan border (border, border-<number>, border-[<value>], dll)
+   Padding dengan p (p-<number>, px-<number>, pt-<number>, dll)
+4. flexbox adalah cara untuk mengatur elemen biar terderet tanpa mengatur manual posisnya. Flexbox adalah untuk mengatur elemen dalam satu dimensi, semacam list, sedangkan grid untuk dua dimensi, semacam grid
+5. >Pertama, saya lihat cara edit delete (gk ngaruh, gk bakal diubah juga), lalu saya membaca website tailwind maksudnya apaan
+>kebanyakan, kewalahan, coba aja. Jelek.
+>Ambil template, ubah sesuai selera (dengan liat website yg sebeliumnya dibaca)
+>bisa 👍
+>Pas diupload ke pws malah rusak :(
+>Sedih
+>kak ini gimana benerinnya
