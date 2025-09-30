@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     CATEGORY_CHOICES = [("futwear","Futwear"),
-                        ("cloathing item","Cloathing item"),
+                        ("cloathing itm","Cloathing itm"),
                         ("merchant dice","Merchant dice"),
-                        ("spourts item", "Spourts item"),
+                        ("spourts itm", "Spourts itm"),
                         ("others","Others")]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
